@@ -1,11 +1,11 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.0.21
+Version:	3.0.22
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnutls.org/pub/gnutls/%{name}-%{version}.tar.xz
-# Source0-md5:	7480dff7115e5af85215893c06b3ac5c
+# Source0-md5:	7b3db90934c2d410c573e37efce3d579
 Patch0:		%{name}-link.patch
 URL:		http://www.gnu.org/software/gnutls/
 BuildRequires:	autoconf
@@ -86,15 +86,15 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
+/usr/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %postun
-/sbin/ldconfig
+/usr/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
-%post	c++ -p /sbin/ldconfig
-%postun	c++ -p /sbin/ldconfig
+%post	c++ -p /usr/sbin/ldconfig
+%postun	c++ -p /usr/sbin/ldconfig
 
 %files -f gnutls.lang
 %defattr(644,root,root,755)
