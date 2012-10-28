@@ -1,12 +1,13 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.0.22
+Version:	3.1.3
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.gnutls.org/pub/gnutls/%{name}-%{version}.tar.xz
-# Source0-md5:	7b3db90934c2d410c573e37efce3d579
+Source0:	http://ftp.gnu.org/gnu/gnutls/%{name}-%{version}.tar.xz
+# Source0-md5:	8a7b47456f65ffa8c01c58461fed1388
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-am.patch
 URL:		http://www.gnu.org/software/gnutls/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -59,6 +60,7 @@ Header files for libgnutlsxx, a C++ interface to gnutls library.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
