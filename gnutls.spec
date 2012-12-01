@@ -1,7 +1,7 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
 Version:	3.1.5
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://ftp.gnu.org/gnu/gnutls/%{name}-%{version}.tar.xz
@@ -19,7 +19,7 @@ BuildRequires:	p11-kit-devel
 BuildRequires:	readline-devel
 BuildRequires:	texinfo
 BuildRequires:	zlib-devel
-Requires(post,postun):	/sbin/ldconfig
+Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,20 +28,26 @@ secure layer, over a reliable transport layer (ie. TCP/IP). Currently
 the gnuTLS library implements the proposed standards by the IETF's TLS
 working group.
 
+%package libs
+Summary:	GnuTLS libraries
+Group:		Libraries
+
+%description libs
+GnuTLS libraries.
+
 %package devel
 Summary:	Header files etc to develop gnutls applications
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Header files etc to develop gnutls applications.
 
 %package c++
 Summary:	libgnutlsxx - C++ interface to gnutls library
-Summary(pl.UTF-8):	libgnutlsxx - interfejs C++ do biblioteki gnutls
 License:	LGPL v2.1+
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description c++
 libgnutlsxx - C++ interface to gnutls library.
@@ -88,12 +94,13 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/usr/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %postun
-/usr/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	libs -p /usr/sbin/ldconfig
+%postun	libs -p /usr/sbin/ldconfig
 
 %post	c++ -p /usr/sbin/ldconfig
 %postun	c++ -p /usr/sbin/ldconfig
@@ -102,17 +109,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %attr(755,root,root) %{_bindir}/certtool
+%attr(755,root,root) %{_bindir}/crywrap
+%attr(755,root,root) %{_bindir}/danetool
 %attr(755,root,root) %{_bindir}/gnutls*
 %attr(755,root,root) %{_bindir}/ocsptool
 %attr(755,root,root) %{_bindir}/p11tool
 %attr(755,root,root) %{_bindir}/psktool
 %attr(755,root,root) %{_bindir}/srptool
-
-%attr(755,root,root) %ghost %{_libdir}/libgnutls-openssl.so.??
-%attr(755,root,root) %ghost %{_libdir}/libgnutls.so.??
-%attr(755,root,root) %{_libdir}/libgnutls-openssl.so.*.*.*
-%attr(755,root,root) %{_libdir}/libgnutls.so.*.*.*
-
 %{_mandir}/man1/certtool.1*
 %{_mandir}/man1/gnutls-*
 %{_mandir}/man1/ocsptool.1*
@@ -121,6 +124,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/srptool.1*
 %{_infodir}/*.info*
 %{_infodir}/*.png
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %ghost %{_libdir}/libgnutls-openssl.so.??
+%attr(755,root,root) %ghost %{_libdir}/libgnutls.so.??
+%attr(755,root,root) %{_libdir}/libgnutls-openssl.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgnutls.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
