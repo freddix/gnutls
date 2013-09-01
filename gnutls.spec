@@ -1,11 +1,11 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.1.5
-Release:	3
+Version:	3.2.4
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://ftp.gnu.org/gnu/gnutls/%{name}-%{version}.tar.xz
-# Source0-md5:	cd4e5a5382b0e0c76c6cffe30d48bbb6
+Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/%{name}-%{version}.tar.xz
+# Source0-md5:	79ef8538d65128b7ed47046649b98c27
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-am.patch
 URL:		http://www.gnu.org/software/gnutls/
@@ -14,7 +14,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
-BuildRequires:	nettle-devel
+BuildRequires:	nettle-devel >= 2.7
 BuildRequires:	p11-kit-devel
 BuildRequires:	readline-devel
 BuildRequires:	texinfo
@@ -66,7 +66,7 @@ Header files for libgnutlsxx, a C++ interface to gnutls library.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -127,16 +127,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %ghost %{_libdir}/libgnutls-openssl.so.??
-%attr(755,root,root) %ghost %{_libdir}/libgnutls.so.??
+%attr(755,root,root) %ghost %{_libdir}/libgnutls-xssl.so.0
+%attr(755,root,root) %ghost %{_libdir}/libgnutls-openssl.so.27
+%attr(755,root,root) %ghost %{_libdir}/libgnutls.so.28
+%attr(755,root,root) %ghost %{_libdir}/libgnutls-xssl.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgnutls-openssl.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgnutls.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnutls-openssl.so
+%attr(755,root,root) %{_libdir}/libgnutls-xssl.so
 %attr(755,root,root) %{_libdir}/libgnutls.so
 %{_libdir}/libgnutls-openssl.la
+%{_libdir}/libgnutls-xssl.la
 %{_libdir}/libgnutls.la
 %{_includedir}/gnutls
 %exclude %{_includedir}/gnutls/gnutlsxx.h
