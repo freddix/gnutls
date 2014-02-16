@@ -1,11 +1,11 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.2.10
+Version:	3.2.11
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/%{name}-%{version}.tar.xz
-# Source0-md5:	5b74319f1e6462a68d886d1266b282fc
+# Source0-md5:	3fce0742dd7e273235a9d376dd895657
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-am.patch
 URL:		http://www.gnu.org/software/gnutls/
