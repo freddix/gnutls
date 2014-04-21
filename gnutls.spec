@@ -1,13 +1,12 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.2.12
-Release:	2
+Version:	3.3.1
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/%{name}-%{version}.1.tar.xz
-# Source0-md5:	a795db68253d1336f1e3c2ee48c1fee4
+Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/%{name}-%{version}.tar.xz
+# Source0-md5:	6bf7faa9d4996197e0e404e8c25016f8
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-am.patch
 URL:		http://www.gnu.org/software/gnutls/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -66,11 +65,10 @@ Header files for libgnutlsxx, a C++ interface to gnutls library.
 %prep
 %setup -q
 %patch0 -p1
-#%patch1 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal} -I m4 -I gl/m4 -I src/libopts/m4
+%{__aclocal} -I m4 -I gl/m4 -I src/gl/m4 -I src/libopts/m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -127,20 +125,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %ghost %{_libdir}/libgnutls-xssl.so.0
 %attr(755,root,root) %ghost %{_libdir}/libgnutls-openssl.so.27
 %attr(755,root,root) %ghost %{_libdir}/libgnutls.so.28
-%attr(755,root,root) %ghost %{_libdir}/libgnutls-xssl.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgnutls-openssl.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgnutls.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnutls-openssl.so
-%attr(755,root,root) %{_libdir}/libgnutls-xssl.so
 %attr(755,root,root) %{_libdir}/libgnutls.so
 %{_libdir}/libgnutls-openssl.la
-%{_libdir}/libgnutls-xssl.la
 %{_libdir}/libgnutls.la
 %{_includedir}/gnutls
 %exclude %{_includedir}/gnutls/gnutlsxx.h
