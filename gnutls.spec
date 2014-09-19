@@ -1,11 +1,11 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.3.6
+Version:	3.3.7
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/%{name}-%{version}.tar.xz
-# Source0-md5:	84264c7d3f5fad14b7990a4e71aa340e
+# Source0-md5:	a7a73cfa883cd106d70b15300552a5b5
 Patch0:		%{name}-link.patch
 URL:		http://www.gnu.org/software/gnutls/
 BuildRequires:	autoconf
@@ -107,7 +107,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %attr(755,root,root) %{_bindir}/certtool
-%attr(755,root,root) %{_bindir}/crywrap
 %attr(755,root,root) %{_bindir}/danetool
 %attr(755,root,root) %{_bindir}/gnutls*
 %attr(755,root,root) %{_bindir}/ocsptool
@@ -134,8 +133,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnutls-openssl.so
 %attr(755,root,root) %{_libdir}/libgnutls.so
-%{_libdir}/libgnutls-openssl.la
-%{_libdir}/libgnutls.la
 %{_includedir}/gnutls
 %exclude %{_includedir}/gnutls/gnutlsxx.h
 %{_pkgconfigdir}/*.pc
@@ -149,6 +146,5 @@ rm -rf $RPM_BUILD_ROOT
 %files c++-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnutlsxx.so
-%{_libdir}/libgnutlsxx.la
 %{_includedir}/gnutls/gnutlsxx.h
 
