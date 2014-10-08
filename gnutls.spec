@@ -1,11 +1,11 @@
 Summary:	The GNU Transport Layer Security Library
 Name:		gnutls
-Version:	3.3.7
+Version:	3.3.8
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/%{name}-%{version}.tar.xz
-# Source0-md5:	a7a73cfa883cd106d70b15300552a5b5
+# Source0-md5:	b57e6b7630bdba9ea8eb28ff0eb29c2f
 Patch0:		%{name}-link.patch
 URL:		http://www.gnu.org/software/gnutls/
 BuildRequires:	autoconf
@@ -14,7 +14,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
 BuildRequires:	nettle-devel >= 2.7
-BuildRequires:	p11-kit-devel
+BuildRequires:	p11-kit-devel >= 0.20.7
 BuildRequires:	readline-devel
 BuildRequires:	texinfo
 BuildRequires:	zlib-devel
@@ -86,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+
 %find_lang %{name}
 
 %clean
@@ -107,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %attr(755,root,root) %{_bindir}/certtool
+%attr(755,root,root) %{_bindir}/crywrap
 %attr(755,root,root) %{_bindir}/danetool
 %attr(755,root,root) %{_bindir}/gnutls*
 %attr(755,root,root) %{_bindir}/ocsptool
